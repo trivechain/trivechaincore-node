@@ -30,8 +30,8 @@
     "bitcore-node-dash": "./bin/bitcore-node-dash"
   },
   "scripts": {
-    "preinstall": "./scripts/download",
-    "verify": "./scripts/download --skip-bitcoin-download --verify-bitcoin-download",
+    "preinstall": "",
+    "verify": "",
     "test": "mocha -R spec --recursive",
     "regtest": "./scripts/regtest",
     "jshint": "jshint --reporter=node_modules/jshint-stylish ./lib",
@@ -47,7 +47,7 @@
   "dependencies": {
     "async": "^1.3.0",
     "bitcoind-rpc-dash": "^1.0.1",
-    "bitcore-lib-dash": "^0.15.2",
+    "bitcore-lib-dash": "git@gitlab.com:Thunderlabtech/bitcore-node-dash.git",
     "body-parser": "^1.13.3",
     "colors": "^1.1.2",
     "commander": "^2.8.1",
