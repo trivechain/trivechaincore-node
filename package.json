@@ -47,7 +47,7 @@
   "dependencies": {
     "async": "^1.3.0",
     "bitcoind-rpc-dash": "^1.0.1",
-    "bitcore-lib-dash": "git@gitlab.com:Thunderlabtech/bitcore-node-dash.git",
+    "bitcore-lib-dash": "git@gitlab.com:Thunderlabtech/bitcore-lib-dash.git",
     "body-parser": "^1.13.3",
     "colors": "^1.1.2",
     "commander": "^2.8.1",
