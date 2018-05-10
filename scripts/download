@@ -5,19 +5,17 @@ set -e
 root_dir="${HOME}/.bitcore"
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
-version="0.12.2"
-url="https://bamboo.dash.org/browse/DASHL-REL-13/artifact/JOB1/gitian-linux-dash-dist"
+version="1.0.0.1"
+url="https://s3-ap-southeast-1.amazonaws.com/trvcdist"
 
 if [ "${platform}" == "linux" ]; then
     if [ "${arch}" == "x86_64" ]; then
-        tarball_name="dashcore-${version}-linux64.tar.gz"
-    elif [ "${arch}" == "x86_32" ]; then
-        tarball_name="dashcore-${version}-linux32.tar.gz"
+        tarball_name="trivecoind-${version}-linux64.tar.gz"
     fi
 elif [ "${platform}" == "darwin" ]; then
-    tarball_name="dashcore-${version}-osx64.tar.gz"
+    tarball_name="trivecoind-${version}-osx64.tar.gz"
 else
-    echo "Dash binary distribution not available for platform and architecture"
+    echo "Trivecoin Core binary distribution not available for platform and architecture"
     exit -1
 fi
 
@@ -31,7 +29,7 @@ download_bitcoind() {
 
     cd "${root_dir}/data"
 
-    echo "Downloading dash: ${binary_url}"
+    echo "Downloading Trivecoin Core: ${binary_url}"
 
     is_curl=true
     if hash curl 2>/dev/null; then
@@ -46,34 +44,31 @@ download_bitcoind() {
             curl -L $binary_url > $tarball_name
             curl -L $shasums_url > SHA256SUMS.asc
         else
+        echo $binary_url
             wget $binary_url
             wget $shasums_url
         fi
         if test -e "${tarball_name}"; then
-            echo "Unpacking dash distribution"
+            echo "Unpacking trivecoin core distribution"
             tar -xvzf $tarball_name
-            if test $? -eq 0; then
-                ln -sf "dashcore-${version}/bin/dashd"
-                return;
-            fi
+            return;
         fi
     fi
-    echo "Dash binary distribution could not be downloaded"
+    echo "Trivecoin Core binary distribution could not be downloaded"
     exit -1
 }
 
 verify_download() {
-    echo "Verifying signatures of dash download"
-    gpg --verify "${root_dir}/bin/SHA256SUMS.asc"
+    echo "Verifying signatures of Trivecoin core download"
 
     if hash shasum 2>/dev/null; then
         shasum_cmd="shasum -a 256"
     else
         shasum_cmd="sha256sum"
     fi
-
-    download_sha=$(${shasum_cmd} "${root_dir}/bin/${tarball_name}" | awk '{print $1}')
-    expected_sha=$(cat "${root_dir}/bin/SHA256SUMS.asc" | grep "${tarball_name}" | awk '{print $1}')
+echo $shasum_cmd
+    download_sha=$(${shasum_cmd} "${root_dir}/data/${tarball_name}" | awk '{print $1}')
+    expected_sha=$(cat "${root_dir}/data/SHA256SUMS.asc"| grep "${tarball_name}" | awk '{print $1}')
     echo "Checksum (download): ${download_sha}"
     echo "Checksum (verified): ${expected_sha}"
     if [ "${download_sha}" != "${expected_sha}" ]; then
@@ -81,6 +76,7 @@ verify_download() {
         exit 1
     else
         echo -e "\033[1;32mChecksums matched!\033[0m\n"
+        rm ${root_dir}/data/$tarball_name
     fi
 }
 
