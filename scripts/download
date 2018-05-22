@@ -26,9 +26,9 @@ download_bitcoind() {
     echo "####"
     echo "${root_dir}"
     echo "${root_dir}/data"
-    mkdir -p "${root_dir}"
+    mkdir -p "/gg"
     echo "## 1 "
-    mkdir -p "${root_dir}/data"
+    mkdir -p "/gg/data"
     echo "## 2"
 
     cd "${root_dir}/data"
