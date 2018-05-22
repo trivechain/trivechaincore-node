@@ -23,13 +23,9 @@ binary_url="${url}/${tarball_name}"
 shasums_url="${url}/SHA256SUMS.asc"
 
 download_bitcoind() {
-    echo "####"
-    echo "${root_dir}"
-    echo "${root_dir}/data"
-    mkdir -p "/gg"
-    echo "## 1 "
-    mkdir -p "/gg/data"
-    echo "## 2"
+
+    mkdir -p "${root_dir}"
+    mkdir -p "${root_dir}/data"
 
     cd "${root_dir}/data"
 
