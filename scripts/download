@@ -2,7 +2,7 @@
 
 set -e
 
-root_dir="${HOME}/.bitcore"
+root_dir="${HOME}/bitcore"
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
 version="1.0.0.1"
