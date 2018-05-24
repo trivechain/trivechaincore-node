@@ -6,7 +6,7 @@ root_dir="${HOME}/.bitcore"
 platform=`uname -a | awk '{print tolower($1)}'`
 arch=`uname -m`
 version="1.0.0.1"
-url="https://s3-ap-southeast-1.amazonaws.com/trvcdist"
+url="https://cdn.trivecoin.org"
 
 if [ "${platform}" == "linux" ]; then
     if [ "${arch}" == "x86_64" ]; then
