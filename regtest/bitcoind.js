@@ -7,7 +7,7 @@ var index = require('..');
 var log = index.log;
 
 var chai = require('chai');
-var bitcore = require('bitcore-lib-dash');
+var bitcore = require('bitcore-lib-trvc');
 var BN = bitcore.crypto.BN;
 var async = require('async');
 var rimraf = require('rimraf');
@@ -17,7 +17,7 @@ var bitcoind;
 var should = chai.should();
 var assert = chai.assert;
 var sinon = require('sinon');
-var BitcoinRPC = require('bitcoind-rpc-dash');
+var BitcoinRPC = require('bitcoind-rpc-trvc');
 var transactionData = [];
 var blockHashes = [];
 var utxos;
