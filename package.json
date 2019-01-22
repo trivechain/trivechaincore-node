@@ -1,49 +1,49 @@
 {
   "_args": [
     [
-      "bitcore-node-dash@git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
+      "bitcore-node-trvc@git@github.com:trivechain/bitcore-node-trvc.git",
       "/home/insight/trvc"
     ]
   ],
-  "_from": "git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
-  "_id": "bitcore-node-dash@3.0.6",
+  "_from": "git@github.com:trivechain/bitcore-node-trvc.git",
+  "_id": "bitcore-node-trvc@3.0.6",
   "_inCache": true,
   "_installable": true,
-  "_location": "/bitcore-node-dash",
+  "_location": "/bitcore-node-trvc",
   "_phantomChildren": {},
   "_requested": {
     "hosted": {
-      "directUrl": "https://gitlab.com/Thunderlabtech/bitcore-node-dash/raw/master/package.json",
-      "httpsUrl": "git+https://gitlab.com/Thunderlabtech/bitcore-node-dash.git",
-      "shortcut": "gitlab:Thunderlabtech/bitcore-node-dash",
-      "ssh": "git@gitlab.com:Thunderlabtech/bitcore-node-dash.git",
-      "sshUrl": "git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
+      "directUrl": "https://github.com/trivechain/bitcore-node-trvc.git/raw/master/package.json",
+      "httpsUrl": "git+https://github.com/trivechain/bitcore-node-trvc.git",
+      "shortcut": "github:trivechain/bitcore-node-trvc",
+      "ssh": "git@github.com:trivechain/bitcore-node-trvc.git",
+      "sshUrl": "git@github.com:trivechain/bitcore-node-trvc.git",
       "type": "gitlab"
     },
-    "name": "bitcore-node-dash",
-    "raw": "bitcore-node-dash@git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
-    "rawSpec": "git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
+    "name": "bitcore-node-trvc",
+    "raw": "bitcore-node-trvc@git@github.com:trivechain/bitcore-node-trvc.git",
+    "rawSpec": "git@github.com:trivechain/bitcore-node-trvc.git",
     "scope": null,
-    "spec": "git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
+    "spec": "git@github.com:trivechain/bitcore-node-trvc.git",
     "type": "hosted"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git#f5256c85fe82dfd0dc5a2c34c8d32789174c5674",
+  "_resolved": "git@github.com:trivechain/bitcore-node-trvc.git",
   "_shasum": "d1abede7508ed163cca5ad14a57f37e4f1a563f7",
   "_shrinkwrap": null,
-  "_spec": "bitcore-node-dash@git+ssh://git@gitlab.com/Thunderlabtech/bitcore-node-dash.git",
+  "_spec": "bitcore-node-trvc@git@github.com:trivechain/bitcore-node-trvc.git",
   "_where": "/home/insight/trvc",
   "author": {
     "email": "dev@bitpay.com",
     "name": "BitPay"
   },
   "bin": {
-    "bitcore-node-dash": "./bin/bitcore-node-dash"
+    "bitcore-node-trvc": "./bin/bitcore-node-trvc"
   },
   "bugs": {
-    "url": "https://github.com/dashevo/bitcore-node-dash/issues"
+    "url": "https://github.com/trivechain/bitcore-node-trvc/issues"
   },
   "contributors": [
     {
@@ -64,8 +64,8 @@
   ],
   "dependencies": {
     "async": "^1.3.0",
-    "bitcoind-rpc-dash": "git+ssh://git@gitlab.com/Thunderlabtech/bitcoind-rpc-dash.git",
-    "bitcore-lib-dash": "git+ssh://git@gitlab.com/Thunderlabtech/bitcore-lib-dash.git",
+    "bitcoind-rpc-dash": "git@github.com:trivechain/bitcoind-rpc-trvc.git",
+    "bitcore-lib-dash": "git@github.com:trivechain/bitcoind-rpc-trvc.git",
     "body-parser": "^1.13.3",
     "bufferutil": "~1.2.1",
     "colors": "^1.1.2",
@@ -98,19 +98,18 @@
     "sinon": "^1.15.4"
   },
   "gitHead": "f5256c85fe82dfd0dc5a2c34c8d32789174c5674",
-  "homepage": "https://github.com/dashevo/bitcore-node-dash",
+  "homepage": "https://github.com/trivechain/bitcore-node-trvc",
   "license": "MIT",
   "main": "./index.js",
-  "name": "bitcore-node-dash",
+  "name": "bitcore-node-trvc",
   "optionalDependencies": {
     "bufferutil": "~1.2.1",
     "utf-8-validate": "~1.2.1"
   },
-  "readme": "Bitcore Node Dash\n============\n\nA Dash full node for building applications and services with Node.js. A node is extensible and can be configured to run additional services. At the minimum a node has an interface to [Dash Core v0.12.1.x](https://github.com/dashpay/dash/tree/v0.12.1.x) for more advanced address queries. Additional services can be enabled to make a node more useful such as exposing new APIs, running a block explorer and wallet service.\n\n## Install\n\n```bash\nnpm install -g bitcore-node-dash\n```\n\n## Prerequisites\n\n- Dash Core (v0.12.1.x) with support for additional indexing *(see above)*\n- Node.js v0.10, v0.12, v4 or v5\n- ZeroMQ *(libzmq3-dev for Ubuntu/Debian or zeromq on OSX)*\n- ~20GB of disk storage\n- ~1GB of RAM\n\n## Configuration\n\nBitcore includes a Command Line Interface (CLI) for managing, configuring and interfacing with your Bitcore Node.\n\n```bash\nbitcore-node-dash create -d <dash-data-dir> mynode\ncd mynode\nbitcore-node-dash install <service>\nbitcore-node-dash install https://github.com/yourname/helloworld\nbitcore-node-dash start\n```\n\nThis will create a directory with configuration files for your node and install the necessary dependencies.\n\nPlease note that [Dash Core v0.12.1.x](https://github.com/dashpay/dash/tree/v0.12.1.x) will be downloaded automatically. Once completed the dashd binary should be placed into the &lt;dash-data-dir&gt; folder specified during node creation.\n\nFor more information about (and developing) services, please see the [Service Documentation](docs/services.md).\n\n## Add-on Services\n\nThere are several add-on services available to extend the functionality of Bitcore:\n\n- [Insight API](https://github.com/dashpay/insight-api-dash/tree/master)\n- [Insight UI](https://github.com/dashpay/insight-ui-dash/tree/master)\n- [Bitcore Wallet Service](https://github.com/dashpay/bitcore-wallet-service/tree/master)\n\n## Documentation\n\n- [Upgrade Notes](docs/upgrade.md)\n- [Services](docs/services.md)\n  - [Bitcoind](docs/services/bitcoind.md) - Interface to Bitcoin Core\n  - [Web](docs/services/web.md) - Creates an express application over which services can expose their web/API content\n- [Development Environment](docs/development.md) - Guide for setting up a development environment\n- [Node](docs/node.md) - Details on the node constructor\n- [Bus](docs/bus.md) - Overview of the event bus constructor\n- [Release Process](docs/release.md) - Information about verifying a release and the release process.\n\n## Contributing\n\nPlease send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/bitpay/bitcore/blob/master/CONTRIBUTING.md) file.\n\n## License\n\nCode released under [the MIT license](https://github.com/bitpay/bitcore-node-dash/blob/master/LICENSE).\n\nCopyright 2013-2015 BitPay, Inc.\n\n- bitcoin: Copyright (c) 2009-2015 Bitcoin Core Developers (MIT License)\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dashevo/bitcore-node-dash.git"
+    "url": "git@github.com:trivechain/bitcore-node-trvc.git"
   },
   "scripts": {
     "bitcoind_test": "mocha test/services/bitcoind.unit.js",
