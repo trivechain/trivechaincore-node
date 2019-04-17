@@ -65,7 +65,7 @@
   "dependencies": {
     "async": "^1.3.0",
     "bitcoind-rpc-trvc": "git@github.com:trivechain/bitcoind-rpc-trvc.git",
-    "bitcore-lib-trvc": "git@github.com:trivechain/bitcoind-rpc-trvc.git",
+    "bitcore-lib-trvc": "git@github.com:trivechain/bitcore-lib-trvc.git",
     "body-parser": "^1.13.3",
     "bufferutil": "~1.2.1",
     "colors": "^1.1.2",
