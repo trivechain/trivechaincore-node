@@ -18,7 +18,7 @@
       "shortcut": "github:trivechain/bitcore-node-trvc",
       "ssh": "git@github.com:trivechain/bitcore-node-trvc.git",
       "sshUrl": "git@github.com:trivechain/bitcore-node-trvc.git",
-      "type": "gitlab"
+      "type": "github"
     },
     "name": "bitcore-node-trvc",
     "raw": "bitcore-node-trvc@git@github.com:trivechain/bitcore-node-trvc.git",
