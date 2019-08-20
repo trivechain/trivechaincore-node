@@ -46,8 +46,8 @@
     "trivechaind"
   ],
   "dependencies": {
-    "trivechaincore-lib": "git@github.com:trivechain/trivechaincore-lib.git",
-    "trivechaind-rpc": "git@github.com:trivechain/trivechaind-rpc.git",
+    "trivechaincore-lib": "github:trivechain/trivechaincore-lib",
+    "trivechaind-rpc": "github:trivechain/trivechaind-rpc",
     "async": "^2.6.2",
     "body-parser": "^1.19.0",
     "colors": "^1.3.3",
@@ -68,7 +68,7 @@
     "utf-8-validate": "~5.0.2"
   },
   "devDependencies": {
-    "trivechain/trivechaincore-p2p": "^1.1.9",
+    "trivechaincore-p2p": "github:trivechain/trivechaincore-p2p",
     "benchmark": "2.1.4",
     "chai": "^4.2.0",
     "coveralls": "^3.0.4",
