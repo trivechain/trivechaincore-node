@@ -23,7 +23,7 @@ describe('#findConfig', function() {
         throw err;
       }
       fs.writeFile(
-        testDir + '/p2/bitcore-node-trvc.json',
+        testDir + '/p2/trivechaincore-node.json',
         JSON.stringify(expectedConfig),
         function() {
           mkdirp(testDir + '/e0', function(err) {

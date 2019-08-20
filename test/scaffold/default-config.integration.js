@@ -6,22 +6,25 @@ var sinon = require('sinon');
 var proxyquire = require('proxyquire');
 
 describe('#defaultConfig', function() {
-  var expectedExecPath = path.resolve(__dirname, process.env.HOME, './.bitcore/data/dashd');
+  var expectedExecPath = path.resolve(__dirname, process.env.HOME, './.trivechaincore/data/trivechaind');
 
   it('will return expected configuration', function() {
     var config = JSON.stringify({
       network: 'livenet',
       port: 3001,
       services: [
-        'bitcoind',
+        'trivechaind',
         'web'
       ],
       servicesConfig: {
-        bitcoind: {
-          spawn: {
-            datadir: process.env.HOME + '/.bitcore/data',
-            exec: expectedExecPath
-          }
+        trivechaind: {
+          connect: [{
+            rpchost: '127.0.0.1',
+            rpcport: 9998,
+            rpcuser: 'trivechain',
+            rpcpassword: 'local321',
+            zmqpubrawtx: 'tcp://127.0.0.1:28332'
+           }]
         }
       }
     }, null, 2);
@@ -29,7 +32,7 @@ describe('#defaultConfig', function() {
       fs: {
         existsSync: sinon.stub().returns(false),
         writeFileSync: function(path, data) {
-          path.should.equal(process.env.HOME + '/.bitcore/bitcore-node-trvc.json');
+          path.should.equal(process.env.HOME + '/.trivechaincore/trivechaincore-node.json');
           data.should.equal(config);
         },
         readFileSync: function() {
@@ -42,31 +45,32 @@ describe('#defaultConfig', function() {
     });
     var home = process.env.HOME;
     var info = defaultConfig();
-    info.path.should.equal(home + '/.bitcore');
+    info.path.should.equal(home + '/.trivechaincore');
     info.config.network.should.equal('livenet');
     info.config.port.should.equal(3001);
-    info.config.services.should.deep.equal(['bitcoind', 'web']);
-    var bitcoind = info.config.servicesConfig.bitcoind;
-    should.exist(bitcoind);
-    bitcoind.spawn.datadir.should.equal(home + '/.bitcore/data');
-    bitcoind.spawn.exec.should.equal(expectedExecPath);
+    info.config.services.should.deep.equal(['trivechaind', 'web']);
+    var trivechaind = info.config.servicesConfig.trivechaind;
+    should.exist(trivechaind);
   });
   it('will include additional services', function() {
     var config = JSON.stringify({
       network: 'livenet',
       port: 3001,
       services: [
-        'bitcoind',
+        'trivechaind',
         'web',
         'insight-api',
         'insight-ui'
       ],
       servicesConfig: {
-        bitcoind: {
-          spawn: {
-            datadir: process.env.HOME + '/.bitcore/data',
-            exec: expectedExecPath
-          }
+        trivechaind: {
+          connect: [{
+            rpchost: '127.0.0.1',
+            rpcport: 9998,
+            rpcuser: 'trivechain',
+            rpcpassword: 'local321',
+            zmqpubrawtx: 'tcp://127.0.0.1:28332'
+          }]
         }
       }
     }, null, 2);
@@ -74,7 +78,7 @@ describe('#defaultConfig', function() {
       fs: {
         existsSync: sinon.stub().returns(false),
         writeFileSync: function(path, data) {
-          path.should.equal(process.env.HOME + '/.bitcore/bitcore-node-trvc.json');
+          path.should.equal(process.env.HOME + '/.trivechaincore/trivechaincore-node.json');
           data.should.equal(config);
         },
         readFileSync: function() {
@@ -89,18 +93,16 @@ describe('#defaultConfig', function() {
     var info = defaultConfig({
       additionalServices: ['insight-api', 'insight-ui']
     });
-    info.path.should.equal(home + '/.bitcore');
+    info.path.should.equal(home + '/.trivechaincore');
     info.config.network.should.equal('livenet');
     info.config.port.should.equal(3001);
     info.config.services.should.deep.equal([
-      'bitcoind',
+      'trivechaind',
       'web',
       'insight-api',
       'insight-ui'
     ]);
-    var bitcoind = info.config.servicesConfig.bitcoind;
-    should.exist(bitcoind);
-    bitcoind.spawn.datadir.should.equal(home + '/.bitcore/data');
-    bitcoind.spawn.exec.should.equal(expectedExecPath);
+    var trivechaind = info.config.servicesConfig.trivechaind;
+    should.exist(trivechaind);
   });
 });

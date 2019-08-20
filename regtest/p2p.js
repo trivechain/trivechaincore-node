@@ -6,22 +6,22 @@ var path = require('path');
 var index = require('..');
 var log = index.log;
 
-var p2p = require('bitcore-p2p-dash');
+var p2p = require('trivechaincore-p2p');
 var Peer = p2p.Peer;
 var Messages = p2p.Messages;
 var chai = require('chai');
-var bitcore = require('bitcore-lib-trvc');
-var Transaction = bitcore.Transaction;
-var BN = bitcore.crypto.BN;
+var trivechaincore = require('trivechaincore-lib');
+var Transaction = trivechaincore.Transaction;
+var BN = trivechaincore.crypto.BN;
 var async = require('async');
 var rimraf = require('rimraf');
-var bitcoind;
+var trivechaind;
 
 /* jshint unused: false */
 var should = chai.should();
 var assert = chai.assert;
 var sinon = require('sinon');
-var BitcoinRPC = require('bitcoind-rpc-trvc');
+var TrivechaindRPC = require('trivechaind-rpc');
 var transactionData = [];
 var blockHashes = [];
 var txs = [];
@@ -29,9 +29,9 @@ var client;
 var messages;
 var peer;
 var coinbasePrivateKey;
-var privateKey = bitcore.PrivateKey();
-var destKey = bitcore.PrivateKey();
-var BufferUtil = bitcore.util.buffer;
+var privateKey = trivechaincore.PrivateKey();
+var destKey = trivechaincore.PrivateKey();
+var BufferUtil = trivechaincore.util.buffer;
 var blocks;
 
 describe('P2P Functionality', function() {
@@ -40,8 +40,8 @@ describe('P2P Functionality', function() {
     this.timeout(200000);
 
     // enable regtest
-    bitcore.Networks.enableRegtest();
-    var regtestNetwork = bitcore.Networks.get('regtest');
+    trivechaincore.Networks.enableRegtest();
+    var regtestNetwork = trivechaincore.Networks.get('regtest');
     var datadir = __dirname + '/data';
 
     rimraf(datadir + '/regtest', function(err) {
@@ -49,33 +49,33 @@ describe('P2P Functionality', function() {
         throw err;
       }
 
-      bitcoind = require('../').services.Bitcoin({
+      trivechaind = require('../').services.Trivechain({
         spawn: {
           datadir: datadir,
-          exec: path.resolve(__dirname, process.env.HOME, './.bitcore/data/dashd')
+          exec: path.resolve(__dirname, process.env.HOME, './.trivechaincore/data/trivechaind')
         },
         node: {
-          network: bitcore.Networks.testnet
+          network: trivechaincore.Networks.testnet
         }
       });
 
-      bitcoind.on('error', function(err) {
+      trivechaind.on('error', function(err) {
         log.error('error="%s"', err.message);
       });
 
-      log.info('Waiting for Dash Core to initialize...');
+      log.info('Waiting for Trivechain Core to initialize...');
 
-      bitcoind.start(function(err) {
+      trivechaind.start(function(err) {
         if (err) {
           throw err;
         }
-        log.info('Bitcoind started');
+        log.info('Trivechaind started');
 
-        client = new BitcoinRPC({
+        client = new TrivechaindRPC({
           protocol: 'http',
           host: '127.0.0.1',
           port: 30331,
-          user: 'bitcoin',
+          user: 'trivechain',
           pass: 'local321',
           rejectUnauthorized: false
         });
@@ -130,11 +130,11 @@ describe('P2P Functionality', function() {
                         throw err;
                       }
                       utxo.privateKeyWIF = privresponse.result;
-                      var tx = bitcore.Transaction();
+                      var tx = trivechaincore.Transaction();
                       tx.from(utxo);
                       tx.change(privateKey.toAddress());
                       tx.to(destKey.toAddress(), utxo.amount * 1e8 - 1000);
-                      tx.sign(bitcore.PrivateKey.fromWIF(utxo.privateKeyWIF));
+                      tx.sign(trivechaincore.PrivateKey.fromWIF(utxo.privateKeyWIF));
                       txs.push(tx);
                       finished();
                     });
@@ -163,8 +163,8 @@ describe('P2P Functionality', function() {
     this.timeout(20000);
     peer.on('disconnect', function() {
       log.info('Peer disconnected');
-      bitcoind.node.stopping = true;
-      bitcoind.stop(function(err, result) {
+      trivechaind.node.stopping = true;
+      trivechaind.stop(function(err, result) {
         done();
       });
     });
@@ -176,7 +176,7 @@ describe('P2P Functionality', function() {
 
     var usedTxs = {};
 
-    bitcoind.on('tx', function(buffer) {
+    trivechaind.on('tx', function(buffer) {
       var txFromResult = new Transaction().fromBuffer(buffer);
       var tx = usedTxs[txFromResult.id];
       should.exist(tx);

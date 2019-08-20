@@ -2,15 +2,15 @@
 
 var should = require('chai').should();
 var sinon = require('sinon');
-var bitcore = require('bitcore-lib-trvc');
-var Networks = bitcore.Networks;
+var trivechaincore = require('trivechaincore-lib');
+var Networks = trivechaincore.Networks;
 var proxyquire = require('proxyquire');
 var util = require('util');
 var BaseService = require('../lib/service');
 var index = require('../lib');
 var log = index.log;
 
-describe('Bitcore Node', function() {
+describe('Trivechaincore Node', function() {
 
   var baseConfig = {};
 
@@ -425,7 +425,7 @@ describe('Bitcore Node', function() {
 
   describe('#getNetworkName', function() {
     afterEach(function() {
-      bitcore.Networks.disableRegtest();
+      trivechaincore.Networks.disableRegtest();
     });
     it('it will return the network name for livenet', function() {
       var node = new Node(baseConfig);

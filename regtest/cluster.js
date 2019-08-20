@@ -4,27 +4,27 @@ var path = require('path');
 var async = require('async');
 var spawn = require('child_process').spawn;
 
-var BitcoinRPC = require('bitcoind-rpc-trvc');
+var TrivechaindRPC = require('trivechaind-rpc');
 var rimraf = require('rimraf');
-var bitcore = require('bitcore-lib-trvc');
+var trivechaincore = require('trivechaincore-lib');
 var chai = require('chai');
 var should = chai.should();
 
 var index = require('..');
 var log = index.log;
 log.debug = function() {};
-var BitcoreNode = index.Node;
-var BitcoinService = index.services.Bitcoin;
+var TrivechaincoreNode = index.Node;
+var TrivechainService = index.services.Trivechain;
 
-describe('Bitcoin Cluster', function() {
+describe('Trivechain Cluster', function() {
   var node;
   var daemons = [];
-  var execPath = path.resolve(__dirname, process.env.HOME, './.bitcore/data/dashd')
+  var execPath = path.resolve(__dirname, process.env.HOME, './.trivechaincore/data/trivechaind')
   var nodesConf = [
     {
       datadir: path.resolve(__dirname, './data/node1'),
-      conf: path.resolve(__dirname, './data/node1/dash.conf'),
-      rpcuser: 'bitcoin',
+      conf: path.resolve(__dirname, './data/node1/trivechain.conf'),
+      rpcuser: 'trivechain',
       rpcpassword: 'local321',
       rpcport: 30521,
       zmqpubrawtx: 'tcp://127.0.0.1:30611',
@@ -32,8 +32,8 @@ describe('Bitcoin Cluster', function() {
     },
     {
       datadir: path.resolve(__dirname, './data/node2'),
-      conf: path.resolve(__dirname, './data/node2/dash.conf'),
-      rpcuser: 'bitcoin',
+      conf: path.resolve(__dirname, './data/node2/trivechain.conf'),
+      rpcuser: 'trivechain',
       rpcpassword: 'local321',
       rpcport: 30522,
       zmqpubrawtx: 'tcp://127.0.0.1:30622',
@@ -41,8 +41,8 @@ describe('Bitcoin Cluster', function() {
     },
     {
       datadir: path.resolve(__dirname, './data/node3'),
-      conf: path.resolve(__dirname, './data/node3/dash.conf'),
-      rpcuser: 'bitcoin',
+      conf: path.resolve(__dirname, './data/node3/trivechain.conf'),
+      rpcuser: 'trivechain',
       rpcpassword: 'local321',
       rpcport: 30523,
       zmqpubrawtx: 'tcp://127.0.0.1:30633',
@@ -51,7 +51,7 @@ describe('Bitcoin Cluster', function() {
   ];
 
   before(function(done) {
-    log.info('Starting 3 dashd daemons');
+    log.info('Starting 3 trivechaind daemons');
     this.timeout(200000);
     async.each(nodesConf, function(nodeConf, next) {
       var opts = [
@@ -67,7 +67,7 @@ describe('Bitcoin Cluster', function() {
 
         var process = spawn(execPath, opts, {stdio: 'inherit'});
 
-        var client = new BitcoinRPC({
+        var client = new TrivechaindRPC({
           protocol: 'http',
           host: '127.0.0.1',
           port: nodeConf.rpcport,
@@ -96,34 +96,34 @@ describe('Bitcoin Cluster', function() {
     }, 1000);
   });
 
-  it('step 1: will connect to three bitcoind daemons', function(done) {
+  it('step 1: will connect to three trivechaind daemons', function(done) {
     this.timeout(20000);
     var configuration = {
       network: 'regtest',
       services: [
         {
-          name: 'bitcoind',
-          module: BitcoinService,
+          name: 'trivechaind',
+          module: TrivechainService,
           config: {
             connect: [
               {
                 rpchost: '127.0.0.1',
                 rpcport: 30521,
-                rpcuser: 'bitcoin',
+                rpcuser: 'trivechain',
                 rpcpassword: 'local321',
                 zmqpubrawtx: 'tcp://127.0.0.1:30611'
               },
               {
                 rpchost: '127.0.0.1',
                 rpcport: 30522,
-                rpcuser: 'bitcoin',
+                rpcuser: 'trivechain',
                 rpcpassword: 'local321',
                 zmqpubrawtx: 'tcp://127.0.0.1:30622'
               },
               {
                 rpchost: '127.0.0.1',
                 rpcport: 30523,
-                rpcuser: 'bitcoin',
+                rpcuser: 'trivechain',
                 rpcpassword: 'local321',
                 zmqpubrawtx: 'tcp://127.0.0.1:30633'
               }
@@ -133,10 +133,10 @@ describe('Bitcoin Cluster', function() {
       ]
     };
 
-    var regtest = bitcore.Networks.get('regtest');
+    var regtest = trivechaincore.Networks.get('regtest');
     should.exist(regtest);
 
-    node = new BitcoreNode(configuration);
+    node = new TrivechaincoreNode(configuration);
 
     node.on('error', function(err) {
       log.error(err);
@@ -156,7 +156,7 @@ describe('Bitcoin Cluster', function() {
 
   it('step 2: receive block events', function(done) {
     this.timeout(10000);
-    node.services.bitcoind.once('tip', function(height) {
+    node.services.trivechaind.once('tip', function(height) {
       height.should.equal(1);
       done();
     });

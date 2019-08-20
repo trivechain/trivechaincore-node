@@ -10,11 +10,11 @@ nvm install v4
 
 ## Fork and Download Repositories
 
-To develop bitcore-node-trvc:
+To develop bitcore-node-trivechain:
 
 ```bash
 cd ~
-git clone git@github.com:<yourusername>/bitcore-node-trvc.git
+git clone git@github.com:<yourusername>/bitcore-node-trivechain.git
 git clone git@github.com:<yourusername>/bitcore-lib.git
 ```
 
@@ -48,19 +48,19 @@ brew install zeromq
 ```bash
 cd bitcore-lib
 npm install
-cd ../bitcore-node-trvc
+cd ../bitcore-node-trivechain
 npm install
 ```
 **Note**: If you get a message about not being able to download bitcoin distribution, you'll need to compile bitcoind from source, and setup your configuration to use that version.
 
 
-We now will setup symlinks in `bitcore-node-trvc` *(repeat this for any other modules you're planning on developing)*:
+We now will setup symlinks in `bitcore-node-trivechain` *(repeat this for any other modules you're planning on developing)*:
 ```bash
 cd node_modules
 rm -rf bitcore-lib
 ln -s ~/bitcore-lib
-rm -rf bitcoind-rpc-trvc
-ln -s ~/bitcoind-rpc-trvc
+rm -rf bitcoind-rpc-trivechain
+ln -s ~/bitcoind-rpc-trivechain
 ```
 
 And if you're compiling or developing bitcoin:
@@ -78,7 +78,7 @@ npm install mocha -g
 
 To run all test suites:
 ```bash
-cd bitcore-node-trvc
+cd bitcore-node-trivechain
 npm run regtest
 npm run test
 ```
@@ -102,11 +102,11 @@ cd ~
 mkdir devnode
 cd devnode
 mkdir node_modules
-touch bitcore-node-trvc.json
+touch bitcore-node-trivechain.json
 touch package.json
 ```
 
-Edit `bitcore-node-trvc.json` with something similar to:
+Edit `bitcore-node-trivechain.json` with something similar to:
 ```json
 {
   "network": "livenet",
@@ -136,7 +136,7 @@ Setup symlinks for all of the services and dependencies:
 ```bash
 cd node_modules
 ln -s ~/bitcore-lib
-ln -s ~/bitcore-node-trvc
+ln -s ~/bitcore-node-trivechain
 ln -s ~/insight-api
 ln -s ~/insight-ui
 ```
@@ -158,5 +158,5 @@ rpcpassword=local321
 
 From within the `devnode` directory with the configuration file, start the node:
 ```bash
-../bitcore-node-trvc/bin/bitcore-node-trvc start
+../bitcore-node-trivechain/bin/bitcore-node-trivechain start
 ```
